@@ -27,7 +27,6 @@ export default {
   </header>
 <span>
   <router-link to="/">Accueil</router-link>
-  <router-link to="/supplier">Fournisseur</router-link>
   <router-link to="/suppliersList">Liste des fournisseurs</router-link>
   <router-link to="/suppliersMap">Carte des fournisseurs</router-link>
   <router-view></router-view>

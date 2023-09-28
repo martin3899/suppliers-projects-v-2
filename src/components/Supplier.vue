@@ -1,11 +1,9 @@
 <script>
 export default {
-  data(){
-    return {
-      name: 'Mon fournisseur',
-      status: false, // est ce qu'il y a du stock
-      checkedAt: new Date() // date de la dernière mise à jour du stock
-    }
+  props:{
+    name: String,
+    status: Boolean,
+    checkedAt: Date,
   }
 }
 </script>

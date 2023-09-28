@@ -9,7 +9,7 @@ import Supplier from "@/components/Supplier.vue"
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/supplier', name:'supplier', component: Supplier},
+        //{path: '/supplier', name:'supplier', component: Supplier},
         {path: '/suppliersList', name:'suppliersList', component: SuppliersList},
         {path: '/suppliersMap', name:'suppliersMap', component: SuppliersMap}
     ]
