@@ -6,6 +6,7 @@ import SuppliersList from "@/components/SuppliersList.vue";
 import SuppliersMap from "@/components/SuppliersMap.vue";
 import Supplier from "@/components/Supplier.vue"
 
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
