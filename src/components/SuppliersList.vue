@@ -2,6 +2,9 @@
 import Supplier from "@/components/Supplier.vue";
 //import supplier from "@/components/Supplier.vue";
 import {format} from "timeago.js";
+import axios from "axios";
+
+
 
 export default {
   computed: {
@@ -14,22 +17,33 @@ export default {
   },
   data(){
     return {
-      suppliers: [
-        {
-          id: 1,
-          name: "Fournisseur 1 ?",
-          status: true,
-          checkedAt: format(new Date()),
-        },
-        {
-          id: 2,
-          name: "Fournisseur 2",
-          status: false,
-          checkedAt: format(new Date()),
-        }
-      ]
+      suppliers: [],
+      loading: false,
+      error: null,
     }
-  }
+  },
+  async beforeMount() {
+    const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
+    this.geojsonOptions.pointToLayer = (feature, latLng) =>
+        circleMarker(latLng, { radius: 8 });
+    this.mapIsReady = true;
+  },
+  methods: {
+    getAPIData() {
+      axios
+          .get("https://suppliers.depembroke.fr/api/suppliers")
+          .then(response => (this.suppliers = response.data.data))
+          .catch(error => {
+            console.log(error);
+            this.error = error;
+          })
+          .finally(() => this.loading=true)
+    },
+  },
+  created() {
+    this.getAPIData();
+  },
+
 }
 
 </script>

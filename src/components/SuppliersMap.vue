@@ -2,6 +2,7 @@
 import "leaflet/dist/leaflet.css"
 import { LMap, LGeoJson, LTileLayer, LMarker, LPopup } from "@vue-leaflet/vue-leaflet";
 import Supplier from "@/components/Supplier.vue";
+import axios from "axios";
 export default {
   components: {
     LMap,
@@ -22,20 +23,8 @@ export default {
       geojsonOptions: {
         // Options that don't rely on Leaflet methods.
       },
-      suppliers: [
-        {
-          id: 1,
-          latitude: 10,
-          longitude: 10
-        },
-        {
-          id: 2,
-          latitude: 11,
-          longitude: 9.6
-        }
-
-      ]
-    };
+        suppliers: []
+  };
   },
   async beforeMount() {
     const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
@@ -43,6 +32,22 @@ export default {
         circleMarker(latLng, { radius: 8 });
     this.mapIsReady = true;
   },
+  methods: {
+    getAPIData() {
+      axios
+          .get("https://suppliers.depembroke.fr/api/suppliers")
+          .then(response => (this.suppliers = response.data.data))
+          .catch(error => {
+            console.log(error);
+            this.error = error;
+          })
+          .finally(() => this.loading=false)
+    },
+  },
+  created() {
+    this.getAPIData();
+  },
+
 };
 
 </script>
